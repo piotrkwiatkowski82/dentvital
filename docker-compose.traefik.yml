@@ -29,8 +29,7 @@ services:
       - default
 
   db:
-    ports:
-      - "127.0.0.1:5433:5432"   # 5433 na hoście – 5432 zajęte przez apartament340
+    ports: []   # w produkcji baza tylko wewnątrz sieci; port 5433 jest w docker-compose.yml (dev)
 
 networks:
   traefik_public:

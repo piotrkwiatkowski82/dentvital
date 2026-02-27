@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-dentvital}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dentvital_dev_pass}
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5433:5432"   # 5433 na hoście – unika konfliktu z innymi Postgresami na 5432
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-dentvital}"]
       interval: 5s
