@@ -29,7 +29,8 @@ services:
       - default
 
   db:
-    ports: []
+    ports:
+      - "127.0.0.1:5433:5432"   # 5433 na hoście – 5432 zajęte przez apartament340
 
 networks:
   traefik_public:
