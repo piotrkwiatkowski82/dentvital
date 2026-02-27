@@ -1,0 +1,37 @@
+# Override do deployu z Traefikiem (produkcja).
+# Użycie na serwerze: ./deploy.sh [opcjonalny-tag]
+# Lub: docker compose -f docker-compose.yml -f docker-compose.traefik.yml up -d --build
+#
+# W .env ustaw: TRAEFIK_DOMAIN, CORS_ORIGINS, opcjonalnie TRAEFIK_NETWORK i TRAEFIK_CERT_RESOLVER.
+
+services:
+  frontend:
+    ports: []
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dentvital-http.rule=Host(`${TRAEFIK_DOMAIN:-dentvital.dotfusion.pl}`)"
+      - "traefik.http.routers.dentvital-http.entrypoints=web"
+      - "traefik.http.routers.dentvital-http.service=dentvital-frontend"
+      - "traefik.http.routers.dentvital-https.rule=Host(`${TRAEFIK_DOMAIN:-dentvital.dotfusion.pl}`)"
+      - "traefik.http.routers.dentvital-https.entrypoints=websecure"
+      - "traefik.http.routers.dentvital-https.service=dentvital-frontend"
+      - "traefik.http.routers.dentvital-https.tls=true"
+      - "traefik.http.routers.dentvital-https.tls.certresolver=${TRAEFIK_CERT_RESOLVER:-myresolver}"
+      - "traefik.http.services.dentvital-frontend.loadbalancer.server.port=80"
+    networks:
+      - default
+      - traefik_public
+
+  backend:
+    ports: []
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    networks:
+      - default
+
+  db:
+    ports: []
+
+networks:
+  traefik_public:
+    external: true
+    name: ${TRAEFIK_NETWORK:-traefik_public}
