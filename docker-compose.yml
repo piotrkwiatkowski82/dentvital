@@ -44,7 +44,7 @@ services:
         VITE_API_URL: ${VITE_API_URL:-}
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "8080:80"   # lokalnie: http://localhost:8080 – na serwerze override wyłącza (Traefik)
     depends_on:
       - backend
 
