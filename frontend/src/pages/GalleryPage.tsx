@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import PageHero from '../components/ui/PageHero';
 import { GALLERY_IMAGES, type GalleryCategory } from '../constants/gallery';
 
@@ -13,11 +13,40 @@ const FILTERS: { value: Filter; label: string }[] = [
 
 export default function GalleryPage() {
   const [activeFilter, setActiveFilter] = useState<Filter>('all');
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const visible =
     activeFilter === 'all'
       ? GALLERY_IMAGES
       : GALLERY_IMAGES.filter((img) => img.category === activeFilter);
+
+  const openLightbox = (i: number) => setLightboxIndex(i);
+  const closeLightbox = () => setLightboxIndex(null);
+
+  const prev = useCallback(() => {
+    setLightboxIndex((i) => (i !== null ? (i - 1 + visible.length) % visible.length : null));
+  }, [visible.length]);
+
+  const next = useCallback(() => {
+    setLightboxIndex((i) => (i !== null ? (i + 1) % visible.length : null));
+  }, [visible.length]);
+
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [lightboxIndex, prev, next]);
+
+  // Prevent body scroll when lightbox open
+  useEffect(() => {
+    document.body.style.overflow = lightboxIndex !== null ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [lightboxIndex]);
 
   return (
     <>
@@ -25,6 +54,7 @@ export default function GalleryPage() {
         eyebrow="Galeria"
         title="Galeria kliniki"
         subtitle="Zajrzyj do naszych gabinetów i poznaj bliżej Dentvital."
+        icon="camera"
         breadcrumbs={[
           { label: 'Strona główna', href: '/' },
           { label: 'Galeria' },
@@ -48,9 +78,9 @@ export default function GalleryPage() {
           <div className="gallery-masonry">
             {visible.map((img, i) => (
               <figure className="gallery-item" key={i}>
-                <a href={img.src} target="_blank" rel="noopener noreferrer">
+                <button className="gallery-item-btn" onClick={() => openLightbox(i)} aria-label={`Otwórz zdjęcie: ${img.alt}`}>
                   <img src={img.src} alt={img.alt} loading="lazy" />
-                </a>
+                </button>
                 {img.caption && <figcaption>{img.caption}</figcaption>}
               </figure>
             ))}
@@ -63,6 +93,48 @@ export default function GalleryPage() {
           )}
         </div>
       </section>
+
+      {/* Lightbox */}
+      {lightboxIndex !== null && (
+        <div className="lightbox" role="dialog" aria-modal="true" aria-label="Podgląd zdjęcia">
+          {/* Backdrop */}
+          <div className="lightbox-backdrop" onClick={closeLightbox} />
+
+          {/* Close */}
+          <button className="lightbox-close" onClick={closeLightbox} aria-label="Zamknij">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+
+          {/* Prev */}
+          <button className="lightbox-nav lightbox-nav--prev" onClick={prev} aria-label="Poprzednie zdjęcie">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+
+          {/* Image */}
+          <div className="lightbox-img-wrap">
+            <img
+              className="lightbox-img"
+              src={visible[lightboxIndex].src}
+              alt={visible[lightboxIndex].alt}
+            />
+            {visible[lightboxIndex].caption && (
+              <p className="lightbox-caption">{visible[lightboxIndex].caption}</p>
+            )}
+            <p className="lightbox-counter">{lightboxIndex + 1} / {visible.length}</p>
+          </div>
+
+          {/* Next */}
+          <button className="lightbox-nav lightbox-nav--next" onClick={next} aria-label="Następne zdjęcie">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+      )}
     </>
   );
 }

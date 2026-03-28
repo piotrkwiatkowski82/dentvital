@@ -54,6 +54,7 @@ export default function FizjoterapiaPage() {
         eyebrow="Oferta"
         title="Fizjoterapia"
         subtitle="Ruch bez bólu i pełna sprawność — terapia manualna, rehabilitacja i trening medyczny."
+        icon="physiotherapy"
         breadcrumbs={[
           { label: 'Strona główna', href: '/' },
           { label: 'Fizjoterapia' },

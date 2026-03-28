@@ -11,12 +11,13 @@ export default function ContactPage() {
         eyebrow="Kontakt"
         title="Skontaktuj się z nami"
         subtitle="Umów wizytę telefonicznie, napisz wiadomość lub odwiedź nas w gabinecie."
+        icon="phone"
         breadcrumbs={[
           { label: 'Strona główna', href: '/' },
           { label: 'Kontakt' },
         ]}
       />
-      <ContactSection />
+      <ContactSection hideHeader />
     </>
   );
 }

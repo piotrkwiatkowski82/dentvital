@@ -12,6 +12,7 @@ export default function TeamPage() {
         eyebrow="O nas"
         title="Nasz zespół"
         subtitle="Multidyscyplinarny zespół specjalistów — stomatolodzy, fizjoterapeuci, logopedzi i trenerzy medyczni pod jednym dachem."
+        icon="users"
         breadcrumbs={[
           { label: 'Strona główna', href: '/' },
           { label: 'O nas' },
@@ -21,17 +22,6 @@ export default function TeamPage() {
 
       <section className="section scroll-reveal">
         <div className="container">
-          <div className="section-head">
-            <span className="eyebrow">Poznaj nas</span>
-            <h2>Specjaliści Dentvital</h2>
-            <p>
-              Łączymy doświadczenie implantologów, ortodontów, fizjoterapeutów i logopedów,
-              aby zapewnić Ci kompleksową opiekę w jednym miejscu. Każdy z naszych
-              specjalistów stale podnosi kwalifikacje, uczestnicząc w szkoleniach krajowych
-              i zagranicznych.
-            </p>
-          </div>
-
           <div className="team-grid">
             {TEAM_MEMBERS.map((member) => (
               <div className="team-card" key={member.id}>

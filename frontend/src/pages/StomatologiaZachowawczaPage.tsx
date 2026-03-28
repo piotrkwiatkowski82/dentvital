@@ -68,6 +68,7 @@ export default function StomatologiaZachowawczaPage() {
         eyebrow="Oferta"
         title="Stomatologia zachowawcza"
         subtitle="Kompleksowe leczenie zębów — od profilaktyki i higienizacji po estetykę i endodoncję mikroskopową."
+        icon="tooth"
         breadcrumbs={[
           { label: 'Strona główna', href: '/' },
           { label: 'Oferta' },

@@ -3,7 +3,7 @@ import { sendContactMessage } from '../../api/contact';
 import { CLINIC } from '../../constants/contact';
 import { IMAGES } from '../../constants/images';
 
-export default function ContactSection() {
+export default function ContactSection({ hideHeader }: { hideHeader?: boolean }) {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [msg, setMsg] = useState('');
   const [msgType, setMsgType] = useState<'success' | 'error' | ''>('');
@@ -39,19 +39,20 @@ export default function ContactSection() {
   return (
     <section id="kontakt" className="section scroll-reveal">
       <div className="container">
-        <div className="section-head">
-          <span className="eyebrow">Kontakt</span>
-          <h2>Jesteśmy na wyciągnięcie ręki</h2>
-          <p className="muted">
-            Umów się telefonicznie, napisz wiadomość lub odwiedź nas w gabinecie
-            przy {CLINIC.addressShort}.
-          </p>
-        </div>
+        {!hideHeader && (
+          <div className="section-head">
+            <span className="eyebrow">Kontakt</span>
+            <h2>Jesteśmy na wyciągnięcie ręki</h2>
+            <p className="muted">
+              Umów się telefonicznie, napisz wiadomość lub odwiedź nas w gabinecie
+              przy {CLINIC.addressShort}.
+            </p>
+          </div>
+        )}
 
         <div className="contact-showcase">
           <div className="contact-showcase-info">
             <div>
-              <h3 style={{ margin: '0 0 16px', fontSize: 20 }}>Gabinet Dentvital</h3>
               <ul className="contact-list">
                 <li><strong>Adres:</strong> {CLINIC.address}</li>
                 <li><strong>Telefon:</strong> <a href={`tel:${CLINIC.phoneRaw}`}>{CLINIC.phone}</a></li>

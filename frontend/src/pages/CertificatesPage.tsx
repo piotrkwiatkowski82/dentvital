@@ -18,6 +18,7 @@ export default function CertificatesPage() {
         eyebrow="O nas"
         title="Certyfikaty i akredytacje"
         subtitle="Nasze kwalifikacje potwierdzają najwyższe standardy opieki medycznej."
+        icon="shield"
         breadcrumbs={[
           { label: 'Strona główna', href: '/' },
           { label: 'O nas' },

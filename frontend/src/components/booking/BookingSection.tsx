@@ -2,6 +2,13 @@ import { useState, type FormEvent } from 'react';
 import { createBooking } from '../../api/booking';
 import { BOOKING_SERVICES } from '../../constants/services';
 
+const TIME_SLOTS: string[] = [];
+for (let h = 8; h < 18; h++) {
+  for (const m of [0, 15, 30, 45]) {
+    TIME_SLOTS.push(`${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`);
+  }
+}
+
 export default function BookingSection() {
   const [form, setForm] = useState({
     service: BOOKING_SERVICES[0],
@@ -79,7 +86,12 @@ export default function BookingSection() {
                 </label>
                 <label>
                   <span>Godzina</span>
-                  <input type="time" value={form.time} onChange={set('time')} required />
+                  <select value={form.time} onChange={set('time')} required>
+                    <option value="">-- wybierz --</option>
+                    {TIME_SLOTS.map((t) => (
+                      <option key={t} value={t}>{t}</option>
+                    ))}
+                  </select>
                 </label>
                 <label>
                   <span>Imię i nazwisko</span>

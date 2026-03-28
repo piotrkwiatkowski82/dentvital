@@ -68,6 +68,7 @@ export default function ChirurgiaStomatologicznaPage() {
         eyebrow="Oferta"
         title="Chirurgia stomatologiczna"
         subtitle="Precyzyjne zabiegi chirurgiczne — od ekstrakcji po zaawansowaną implantologię i augmentację kości."
+        icon="surgery"
         breadcrumbs={[
           { label: 'Strona główna', href: '/' },
           { label: 'Oferta' },
