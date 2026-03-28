@@ -7,6 +7,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const navRef = useRef<HTMLElement>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const location = useLocation();
   useScrolledHeader();
 
@@ -33,6 +34,15 @@ export default function Header() {
 
   function toggleDropdown(label: string) {
     setOpenDropdown((prev) => (prev === label ? null : label));
+  }
+
+  function openDropdownHover(label: string) {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    setOpenDropdown(label);
+  }
+
+  function closeDropdownHover() {
+    closeTimerRef.current = setTimeout(() => setOpenDropdown(null), 150);
   }
 
   const ChevronIcon = () => (
@@ -73,6 +83,8 @@ export default function Header() {
                 <div
                   key={item.label}
                   className={`nav-item${dropOpen ? ' dropdown-open' : ''}`}
+                  onMouseEnter={!menuOpen ? () => openDropdownHover(item.label) : undefined}
+                  onMouseLeave={!menuOpen ? closeDropdownHover : undefined}
                 >
                   <button
                     className={`nav-trigger${active ? ' active' : ''}`}
