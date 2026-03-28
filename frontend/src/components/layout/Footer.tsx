@@ -1,5 +1,6 @@
+import { Link } from 'react-router-dom';
 import { CLINIC } from '../../constants/contact';
-import { NAV_LINKS } from '../../constants/navigation';
+import { NAV_LINKS_FLAT } from '../../constants/navigation';
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -19,9 +20,10 @@ export default function Footer() {
           <div className="footer-col">
             <strong>Szybkie linki</strong>
             <div className="footer-links">
-              {NAV_LINKS.map((link) => (
-                <a key={link.href} href={link.href}>{link.label}</a>
+              {NAV_LINKS_FLAT.map((link) => (
+                <Link key={link.href} to={link.href}>{link.label}</Link>
               ))}
+              <Link to="/o-nas/polityka-prywatnosci">Polityka prywatności</Link>
             </div>
           </div>
 
