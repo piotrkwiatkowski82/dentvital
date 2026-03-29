@@ -1,7 +1,7 @@
 import PageHero from '../components/ui/PageHero';
 import { CLINIC } from '../constants/contact';
 
-const SECTIONS = [
+const _SECTIONS = [
   {
     title: '1. Administrator danych osobowych',
     content: null,

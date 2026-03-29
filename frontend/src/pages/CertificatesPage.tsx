@@ -1,7 +1,7 @@
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import PageHero from '../components/ui/PageHero';
 import { CERTIFICATES } from '../constants/certificates';
-import { IMAGES } from '../constants/images';
+
 import { PAGE_ICONS } from '../constants/icons';
 
 const ShieldIcon = () => (
