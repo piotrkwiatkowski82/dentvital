@@ -1,6 +1,7 @@
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import Hero from '../components/hero/Hero';
 import HeroWide from '../components/hero/HeroWide';
+import { HeroV1, HeroV2, HeroV3, HeroV4, HeroV5 } from '../components/hero/HeroVariants';
 import FocusPanels from '../components/panels/FocusPanels';
 import ServicesSection from '../components/services/ServicesSection';
 import TeamSection from '../components/team/TeamSection';
@@ -13,7 +14,11 @@ export default function HomePage() {
 
   return (
     <>
-      <Hero />
+      <HeroV1 />
+      <HeroV2 />
+      <HeroV3 />
+      <HeroV4 />
+      <HeroV5 />
       <HeroWide />
       <FocusPanels />
       <ServicesSection />

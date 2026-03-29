@@ -16,14 +16,20 @@ export const NAV_ITEMS: NavItem[] = [
     children: [
       { label: 'Zespół', href: '/o-nas/zespol' },
       { label: 'Certyfikaty', href: '/o-nas/certyfikaty' },
+      { label: 'Szczecińska Karta Rodzinna', href: '/o-nas/szczecinska-karta-rodzinna' },
     ],
   },
   {
     label: 'Oferta',
     children: [
+      { label: 'Protetyka', href: '/oferta/protetyka' },
       { label: 'Stomatologia zachowawcza', href: '/oferta/stomatologia-zachowawcza' },
+      { label: 'Stomatologia estetyczna', href: '/oferta/stomatologia-estetyczna' },
       { label: 'Chirurgia stomatologiczna', href: '/oferta/chirurgia-stomatologiczna' },
+      { label: 'Implantologia', href: '/oferta/implantologia' },
+      { label: 'Ortodoncja', href: '/oferta/ortodoncja' },
       { label: 'Fizjoterapia', href: '/fizjoterapia' },
+      { label: 'Radiowizjografia i RTG', href: '/oferta/radiowizjografia-rtg' },
     ],
   },
   { label: 'Galeria', href: '/galeria' },

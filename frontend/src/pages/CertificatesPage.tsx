@@ -1,6 +1,8 @@
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import PageHero from '../components/ui/PageHero';
 import { CERTIFICATES } from '../constants/certificates';
+import { IMAGES } from '../constants/images';
+import { PAGE_ICONS } from '../constants/icons';
 
 const ShieldIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -51,19 +53,28 @@ export default function CertificatesPage() {
         </div>
       </section>
 
-      <section className="section alt scroll-reveal">
-        <div className="container" style={{ textAlign: 'center' }}>
-          <div className="section-head">
+      <section className="section alt scroll-reveal" style={{ position: 'relative', overflow: 'hidden' }}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ position: 'absolute', width: 200, height: 200, top: '50%', right: -60, transform: 'translateY(-50%) rotate(35deg)', opacity: 0.1, color: 'var(--accent)', pointerEvents: 'none' }}>
+          <path d={PAGE_ICONS.tooth} />
+        </svg>
+        <div className="container service-intro">
+          <div className="service-intro-text">
             <span className="eyebrow">Nasz zespół</span>
             <h2>Poznaj specjalistów</h2>
             <p>
               Za każdym certyfikatem stoi doświadczony specjalista, który z pasją zajmuje się
-              swoją dziedziną.
+              swoją dziedziną. Nasz multidyscyplinarny zespół łączy stomatolodzy, ortodontów,
+              chirurgów, fizjoterapeutów i logopedów pod jednym dachem.
             </p>
+            <a href="/o-nas/zespol" className="button primary">
+              Poznaj nasz zespół
+            </a>
           </div>
-          <a href="/o-nas/zespol" className="button primary">
-            Poznaj nasz zespół
-          </a>
+          <div style={{ position: 'relative', width: 340, minHeight: 280, flexShrink: 0 }}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ position: 'absolute', width: 320, height: 320, bottom: -40, left: -20, opacity: 0.13, color: 'var(--accent)' }}>
+              <path d={PAGE_ICONS.team} />
+            </svg>
+          </div>
         </div>
       </section>
     </>
