@@ -19,6 +19,8 @@ const RadiowizjografiaPage = lazy(() => import('./pages/RadiowizjografiaPage'));
 const FizjoterapiaPage = lazy(() => import('./pages/FizjoterapiaPage'));
 const GalleryPage = lazy(() => import('./pages/GalleryPage'));
 const KartaRodzinnaPage = lazy(() => import('./pages/KartaRodzinnaPage'));
+const CennikPage = lazy(() => import('./pages/CennikPage'));
+const ComponentsPage = lazy(() => import('./pages/ComponentsPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const NewsListPage = lazy(() => import('./pages/NewsListPage'));
 
@@ -48,6 +50,8 @@ export default function App() {
             <Route path="/oferta/ortodoncja" element={<OrtodoncjaPage />} />
             <Route path="/oferta/radiowizjografia-rtg" element={<RadiowizjografiaPage />} />
             <Route path="/fizjoterapia" element={<FizjoterapiaPage />} />
+            <Route path="/cennik" element={<CennikPage />} />
+            <Route path="/components" element={<ComponentsPage />} />
             <Route path="/galeria" element={<GalleryPage />} />
             <Route path="/kontakt" element={<ContactPage />} />
             <Route path="/aktualnosci" element={<NewsListPage />} />

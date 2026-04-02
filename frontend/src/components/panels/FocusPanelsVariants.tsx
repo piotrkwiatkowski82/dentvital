@@ -178,7 +178,6 @@ export function FocusV3() {
 export function FocusV4() {
   return (
     <section style={{ position: 'relative', padding: '80px 0', background: '#0f172a' }}>
-      <Label text="Wariant 4 — Zdjęcia w tle" />
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <span style={{ fontSize: 13, fontWeight: 600, color: '#4ade80', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Nasza oferta</span>

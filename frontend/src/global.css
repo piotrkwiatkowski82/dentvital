@@ -1616,6 +1616,94 @@ input::placeholder, textarea::placeholder { color: #94a3b8; }
 }
 
 /* ============================================
+   CENNIK (PRICING PAGE)
+   ============================================ */
+.cennik-intro {
+  padding: 48px 0 8px;
+  max-width: 760px;
+}
+.cennik-intro p {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.75;
+  margin: 0 0 12px;
+}
+.cennik-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  gap: 24px;
+}
+.price-table {
+  background: var(--bg-elev);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(15, 23, 42, 0.07);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.price-table-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px 18px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.07);
+  background: var(--bg-elev-2);
+}
+.price-table-icon {
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.price-table-head h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.price-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+.price-list tr {
+  border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+  transition: background var(--transition-fast);
+}
+.price-list tr:last-child { border-bottom: none; }
+.price-list tr:hover { background: var(--accent-light); }
+.price-list td {
+  padding: 13px 24px;
+  font-size: 14px;
+  vertical-align: middle;
+}
+.price-service {
+  color: #1e293b;
+  line-height: 1.4;
+}
+.price-amount {
+  text-align: right;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.cennik-note {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  background: var(--bg-elev);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  border: 1px solid rgba(15, 23, 42, 0.07);
+  max-width: 760px;
+  margin: 0 auto;
+}
+.cennik-note-icon { font-size: 28px; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+.cennik-note h4 { margin: 0 0 6px; font-size: 16px; font-weight: 700; }
+.cennik-note p { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.65; }
+@media (max-width: 1020px) {
+  .cennik-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================
    PAGE LOADING FALLBACK
    ============================================ */
 .page-loading {

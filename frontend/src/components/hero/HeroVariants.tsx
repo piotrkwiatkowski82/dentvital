@@ -66,9 +66,6 @@ export function HeroV2() {
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }}
       />
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(100deg, rgba(10,20,15,0.82) 0%, rgba(10,20,15,0.5) 60%, rgba(10,20,15,0.2) 100%)', zIndex: 1 }} />
-      <div style={{ position: 'absolute', top: 16, left: '50%', transform: 'translateX(-50%)', background: '#0f172a', color: '#fff', fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', padding: '6px 20px', borderRadius: 999, zIndex: 10, textTransform: 'uppercase' }}>
-        Wariant 2 — Zdjęcie w tle
-      </div>
       <div className="container" style={{ position: 'relative', zIndex: 2, padding: '120px 24px 80px', maxWidth: 700 }}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px 6px 8px', borderRadius: 999, background: 'rgba(255,255,255,0.12)', color: '#fff', fontWeight: 600, fontSize: 13, border: '1px solid rgba(255,255,255,0.2)', marginBottom: 24, backdropFilter: 'blur(8px)' }}>
           <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#4ade80' }} />

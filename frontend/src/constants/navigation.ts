@@ -32,6 +32,7 @@ export const NAV_ITEMS: NavItem[] = [
       { label: 'Radiowizjografia i RTG', href: '/oferta/radiowizjografia-rtg' },
     ],
   },
+  { label: 'Cennik', href: '/cennik' },
   { label: 'Galeria', href: '/galeria' },
   { label: 'Aktualności', href: '/aktualnosci' },
   { label: 'Kontakt', href: '/kontakt' },
