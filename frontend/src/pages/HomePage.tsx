@@ -1,6 +1,5 @@
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
-import { HeroV2 } from '../components/hero/HeroVariants';
 import { FocusV4 } from '../components/panels/FocusPanelsVariants';
 import ServicesSection from '../components/services/ServicesSection';
 import TeamSection from '../components/team/TeamSection';
@@ -13,7 +12,6 @@ export default function HomePage() {
 
   return (
     <>
-      <HeroV2 />
       <FocusV4 />
       <ServicesSection />
       <TeamSection />

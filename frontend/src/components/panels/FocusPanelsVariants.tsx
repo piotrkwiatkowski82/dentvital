@@ -176,29 +176,46 @@ export function FocusV3() {
 
 /* ─── WARIANT 4: Karty ze zdjęciem w tle ─── */
 export function FocusV4() {
+  const [first, ...rest] = PANELS;
   return (
-    <section style={{ position: 'relative', padding: '80px 0', background: '#0f172a' }}>
+    <section style={{ position: 'relative', padding: '100px 0 80px', background: 'linear-gradient(160deg, #dcfce7 0%, #f0fdf4 100%)' }}>
       <div className="container">
-        <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <span style={{ fontSize: 13, fontWeight: 600, color: '#4ade80', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Nasza oferta</span>
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: 800, margin: '8px 0 0', letterSpacing: '-0.02em', color: '#fff' }}>Kompleksowa opieka pod jednym dachem</h2>
+        <div style={{ textAlign: 'center', marginBottom: 56 }}>
+          <span style={{ fontSize: 14, fontWeight: 600, color: '#16a34a', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Nasza oferta</span>
+          <h2 style={{ fontSize: 'clamp(36px, 5vw, 66px)', fontWeight: 900, margin: '12px 0 0', letterSpacing: '-0.03em', lineHeight: 1.08, color: '#14532d' }}>Kompleksowa opieka<br />pod jednym dachem</h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
-          {PANELS.map((p) => (
-            <a key={p.label} href={p.href} style={{ textDecoration: 'none', position: 'relative', borderRadius: 20, overflow: 'hidden', minHeight: 380, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-              <img src={p.img} alt={p.label} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-              <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to top, rgba(10,15,10,0.9) 0%, rgba(10,15,10,0.4) 50%, rgba(10,15,10,0.1) 100%)` }} />
-              <div style={{ position: 'relative', padding: '24px 24px 28px' }}>
-                <div style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>{p.icon}</div>
-                <div style={{ fontSize: 11, fontWeight: 700, color: p.color === '#16a34a' ? '#4ade80' : '#fff', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 6, opacity: 0.8 }}>{p.label}</div>
-                <h3 style={{ fontSize: 17, fontWeight: 700, color: '#fff', margin: '0 0 8px', lineHeight: 1.3 }}>{p.title}</h3>
-                <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', lineHeight: 1.6, margin: '0 0 16px' }}>{p.desc}</p>
-                <span style={{ fontSize: 13, fontWeight: 600, color: '#fff', display: 'inline-flex', alignItems: 'center', gap: 5, background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', padding: '8px 16px', borderRadius: 8 }}>
-                  {p.cta} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </span>
-              </div>
-            </a>
-          ))}
+        <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 1fr', gap: 16 }}>
+          {/* Pierwsza duża karta */}
+          <a href={first.href} style={{ textDecoration: 'none', position: 'relative', borderRadius: 20, overflow: 'hidden', minHeight: 540, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+            <img src={first.img} alt={first.label} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,15,10,0.9) 0%, rgba(10,15,10,0.4) 55%, rgba(10,15,10,0.1) 100%)' }} />
+            <div style={{ position: 'relative', padding: '32px 36px 40px' }}>
+              <div style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>{first.icon}</div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#4ade80', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 10, opacity: 0.9 }}>{first.label}</div>
+              <h3 style={{ fontSize: 'clamp(22px, 2.5vw, 30px)', fontWeight: 800, color: '#fff', margin: '0 0 12px', lineHeight: 1.2, letterSpacing: '-0.02em' }}>{first.title}</h3>
+              <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.75)', lineHeight: 1.7, margin: '0 0 24px', maxWidth: 440 }}>{first.desc}</p>
+              <span style={{ fontSize: 15, fontWeight: 600, color: '#fff', display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', padding: '10px 22px', borderRadius: 10 }}>
+                {first.cta} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </a>
+          {/* Trzy mniejsze karty */}
+          <div style={{ display: 'grid', gridTemplateRows: 'repeat(3, 1fr)', gap: 16 }}>
+            {rest.map((p) => (
+              <a key={p.label} href={p.href} style={{ textDecoration: 'none', position: 'relative', borderRadius: 20, overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                <img src={p.img} alt={p.label} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,15,10,0.9) 0%, rgba(10,15,10,0.4) 55%, rgba(10,15,10,0.1) 100%)' }} />
+                <div style={{ position: 'relative', padding: '20px 22px 24px' }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: '#fff', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 6, opacity: 0.7 }}>{p.label}</div>
+                  <h3 style={{ fontSize: 18, fontWeight: 700, color: '#fff', margin: '0 0 6px', lineHeight: 1.3 }}>{p.title}</h3>
+                  <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.7)', lineHeight: 1.6, margin: '0 0 14px' }}>{p.desc}</p>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#fff', display: 'inline-flex', alignItems: 'center', gap: 5, background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', padding: '8px 16px', borderRadius: 8 }}>
+                    {p.cta} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>
