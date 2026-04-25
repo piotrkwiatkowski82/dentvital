@@ -27,12 +27,16 @@ services:
     ports: []
     labels:
       - "traefik.enable=true"
+      # Obcina /admin przed proxy do Nginx (statyczne pliki są z buildu z base=/ )
+      - "traefik.http.middlewares.dentvital-admin-strip.stripprefix.prefixes=/admin"
       - "traefik.http.routers.dentvital-admin-http.rule=Host(`${TRAEFIK_DOMAIN:-dentvital.dotfusion.pl}`) && PathPrefix(`/admin`)"
       - "traefik.http.routers.dentvital-admin-http.entrypoints=web"
+      - "traefik.http.routers.dentvital-admin-http.middlewares=dentvital-admin-strip@docker"
       - "traefik.http.routers.dentvital-admin-http.service=dentvital-admin"
       - "traefik.http.routers.dentvital-admin-http.priority=100"
       - "traefik.http.routers.dentvital-admin-https.rule=Host(`${TRAEFIK_DOMAIN:-dentvital.dotfusion.pl}`) && PathPrefix(`/admin`)"
       - "traefik.http.routers.dentvital-admin-https.entrypoints=websecure"
+      - "traefik.http.routers.dentvital-admin-https.middlewares=dentvital-admin-strip@docker"
       - "traefik.http.routers.dentvital-admin-https.service=dentvital-admin"
       - "traefik.http.routers.dentvital-admin-https.priority=100"
       - "traefik.http.routers.dentvital-admin-https.tls=true"
