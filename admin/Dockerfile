@@ -5,15 +5,15 @@ COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
 ARG VITE_API_URL=
-# '/' – zasoby pod /assets/…; w przeglądarce dalej używamy /admin/ dzięki Traefik (StripPrefix) i basename
-ARG VITE_BASE_PATH=/
+# Publiczne URL-e: /admin/…; Traefik używa StripPrefix, więc w kontenerze pliki są od roota
+ARG VITE_BASE_PATH=/admin/
 ENV VITE_API_URL=${VITE_API_URL}
 ENV VITE_BASE_PATH=${VITE_BASE_PATH}
 RUN npm run build
 
-# Stage 2: Serve with nginx
+# Stage 2: Serve with nginx (dist/admin/ => document root — zgodnie ze StripPrefix)
 FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist/admin /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
