@@ -1,9 +1,9 @@
 import { useState, type FormEvent } from 'react';
 import { sendContactMessage } from '../../api/contact';
-import { CLINIC } from '../../constants/contact';
-import { IMAGES } from '../../constants/images';
+import { useContactInfo } from '../../hooks/useContactInfo';
 
 export default function ContactSection({ hideHeader }: { hideHeader?: boolean }) {
+  const contact = useContactInfo();
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [msg, setMsg] = useState('');
   const [msgType, setMsgType] = useState<'success' | 'error' | ''>('');
@@ -45,7 +45,7 @@ export default function ContactSection({ hideHeader }: { hideHeader?: boolean })
             <h2>Jesteśmy na wyciągnięcie ręki</h2>
             <p className="muted">
               Umów się telefonicznie, napisz wiadomość lub odwiedź nas w gabinecie
-              przy {CLINIC.addressShort}.
+              przy {contact.address_short}.
             </p>
           </div>
         )}
@@ -54,10 +54,10 @@ export default function ContactSection({ hideHeader }: { hideHeader?: boolean })
           <div className="contact-showcase-info">
             <div>
               <ul className="contact-list">
-                <li><strong>Adres:</strong> {CLINIC.address}</li>
-                <li><strong>Telefon:</strong> <a href={`tel:${CLINIC.phoneRaw}`}>{CLINIC.phone}</a></li>
-                <li><strong>E-mail:</strong> <a href={`mailto:${CLINIC.email}`}>{CLINIC.email}</a></li>
-                <li><strong>Godziny:</strong> {CLINIC.hours}</li>
+                <li><strong>Adres:</strong> {contact.address}</li>
+                <li><strong>Telefon:</strong> <a href={`tel:${contact.phone_raw}`}>{contact.phone}</a></li>
+                <li><strong>E-mail:</strong> <a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+                <li><strong>Godziny:</strong> {contact.hours}</li>
               </ul>
               <p style={{ color: 'var(--muted)', fontSize: 14, margin: 0 }}>
                 Parking dla pacjentów od podwórza. W budynku dostępna jest winda.
@@ -103,7 +103,7 @@ export default function ContactSection({ hideHeader }: { hideHeader?: boolean })
             <div className="contact-media-card">
               <h4>Mapa dojazdu</h4>
               <iframe
-                src={CLINIC.mapEmbed}
+                src={contact.map_embed}
                 width="100%"
                 height="320"
                 loading="lazy"
@@ -112,7 +112,7 @@ export default function ContactSection({ hideHeader }: { hideHeader?: boolean })
               />
               <p style={{ marginTop: 12 }}>
                 <a
-                  href={CLINIC.mapLink}
+                  href={contact.map_link}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 500, fontSize: 14 }}
@@ -124,14 +124,14 @@ export default function ContactSection({ hideHeader }: { hideHeader?: boolean })
             <div className="contact-media-card">
               <h4>Jak nas znaleźć</h4>
               <img
-                src={IMAGES.building}
+                src={contact.building_image_url}
                 alt="Nowoczesny budynek kliniki Dentvital - wejście główne"
                 width={900}
                 height={600}
                 loading="lazy"
               />
               <p style={{ color: 'var(--muted)', fontSize: 14, marginTop: 10 }}>
-                Wejście od strony {CLINIC.addressShort} — szukaj zielonej witryny na parterze.
+                Wejście od strony {contact.address_short} — szukaj zielonej witryny na parterze.
               </p>
             </div>
           </div>

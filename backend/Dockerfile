@@ -10,6 +10,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+RUN mkdir -p /app/uploads/hero /app/uploads/gallery /app/uploads/contact
+
 ENV PYTHONPATH=/app
 
 EXPOSE 8000

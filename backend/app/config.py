@@ -18,6 +18,16 @@ class Settings(BaseSettings):
     # Clinic
     CLINIC_EMAIL: str = "recepcja@dentvital.pl"
 
+    # Admin auth
+    ADMIN_USERNAME: str = "admin"
+    ADMIN_PASSWORD: str = ""  # bcrypt hash — set in .env
+    JWT_SECRET_KEY: str = "change-me-in-production"
+    JWT_ALGORITHM: str = "HS256"
+    JWT_EXPIRE_MINUTES: int = 480
+
+    # File uploads
+    UPLOADS_DIR: str = "/app/uploads"
+
     # CORS
     CORS_ORIGINS: str = "http://localhost,http://localhost:5173"
 

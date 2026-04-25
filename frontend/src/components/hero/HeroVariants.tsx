@@ -1,5 +1,11 @@
-import { IMAGES } from '../../constants/images';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { IMAGES, NEWS_IMAGES } from '../../constants/images';
 import { CLINIC } from '../../constants/contact';
+import { useHeroImage } from '../../hooks/useHeroImage';
+import { useHeroText } from '../../hooks/useHeroText';
+import { fetchNews } from '../../api/news';
+import type { NewsItem } from '../../types';
 
 const PhoneIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -57,35 +63,45 @@ export function HeroV1() {
 
 /* ─── WARIANT 2: Pełne tło ze zdjęciem ───────────────── */
 export function HeroV2() {
+  const heroSrc = useHeroImage();
+  const ht = useHeroText();
+  const [news, setNews] = useState<NewsItem[]>([]);
+
+  useEffect(() => {
+    fetchNews(3).then((data) => setNews(data.items)).catch(() => {});
+  }, []);
+
   return (
-    <section style={{ position: 'relative', overflow: 'hidden', minHeight: '88vh', display: 'flex', alignItems: 'center' }}>
+    <section style={{ position: 'relative', overflow: 'hidden', minHeight: '88vh', display: 'flex', flexDirection: 'column' }}>
       <img
-        src={IMAGES.hero}
+        src={heroSrc}
         alt=""
         aria-hidden
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }}
       />
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(100deg, rgba(10,20,15,0.82) 0%, rgba(10,20,15,0.5) 60%, rgba(10,20,15,0.2) 100%)', zIndex: 1 }} />
-      <div className="container" style={{ position: 'relative', zIndex: 2, padding: '120px 24px 80px', maxWidth: 700 }}>
+
+      {/* główna treść hero */}
+      <div className="container" style={{ position: 'relative', zIndex: 2, padding: '120px 24px 60px', maxWidth: 700, flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px 6px 8px', borderRadius: 999, background: 'rgba(255,255,255,0.12)', color: '#fff', fontWeight: 600, fontSize: 13, border: '1px solid rgba(255,255,255,0.2)', marginBottom: 24, backdropFilter: 'blur(8px)' }}>
           <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#4ade80' }} />
-          Klinika stomatologiczna
+          {ht.badge}
         </span>
         <h1 style={{ fontSize: 'clamp(36px, 5vw, 66px)', fontWeight: 900, lineHeight: 1.08, letterSpacing: '-0.03em', color: '#fff', margin: '0 0 20px' }}>
-          Twój uśmiech,<br />
-          <span style={{ color: '#4ade80' }}>nasz priorytet</span>
+          {ht.heading_line1}<br />
+          <span style={{ color: '#4ade80' }}>{ht.heading_line2}</span>
         </h1>
         <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: 18, lineHeight: 1.7, maxWidth: 520, margin: '0 0 36px' }}>
-          Kompleksowa opieka, komfort i transparentność na każdym etapie leczenia. Od pierwszej wizyty po gotowy uśmiech.
+          {ht.subtext}
         </p>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 36 }}>
-          <a className="button primary" href="#rejestracja">Umów wizytę</a>
+          <a className="button primary" href="#rejestracja">{ht.cta_primary}</a>
           <a href={`tel:${CLINIC.phoneRaw}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 24px', borderRadius: 12, border: '1px solid rgba(255,255,255,0.3)', color: '#fff', fontWeight: 600, fontSize: 15, backdropFilter: 'blur(8px)', background: 'rgba(255,255,255,0.08)', textDecoration: 'none' }}>
             <PhoneIcon />{CLINIC.phone}
           </a>
         </div>
         <ul style={{ display: 'flex', gap: 10, flexWrap: 'wrap', padding: 0, listStyle: 'none', margin: 0 }}>
-          {['Stomatologia estetyczna', 'Implantologia', 'Wybielanie zębów'].map(item => (
+          {ht.tags.map(item => (
             <li key={item} style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.18)', padding: '10px 16px', borderRadius: 12, fontWeight: 500, fontSize: 13, color: '#fff', display: 'flex', alignItems: 'center', gap: 8, backdropFilter: 'blur(8px)' }}>
               <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#4ade80', flexShrink: 0 }} />
               {item}
@@ -93,6 +109,46 @@ export function HeroV2() {
           ))}
         </ul>
       </div>
+
+      {/* pasek aktualności */}
+      {news.length > 0 && (
+        <div style={{ position: 'relative', zIndex: 2, width: '100%', padding: '0 0 32px' }}>
+          <div className="container">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+              <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#4ade80', flexShrink: 0 }} />
+              <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>Aktualności</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+              {news.map((item, i) => (
+                <Link
+                  key={item.slug}
+                  to={`/aktualnosci/${item.slug}`}
+                  style={{ display: 'flex', gap: 16, alignItems: 'flex-start', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.14)', borderRadius: 16, padding: '16px 18px', backdropFilter: 'blur(12px)', textDecoration: 'none', transition: 'background 0.2s' }}
+                  onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.15)')}
+                  onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
+                >
+                  <img
+                    src={NEWS_IMAGES[i % NEWS_IMAGES.length]}
+                    alt=""
+                    style={{ width: 72, height: 72, borderRadius: 12, objectFit: 'cover', flexShrink: 0 }}
+                  />
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 11, marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>
+                      {new Date(item.published_at).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    </div>
+                    <div style={{ color: '#fff', fontWeight: 700, fontSize: 14, lineHeight: 1.45, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', marginBottom: 8 }}>
+                      {item.title}
+                    </div>
+                    <div style={{ color: 'rgba(255,255,255,0.55)', fontSize: 12, lineHeight: 1.5, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+                      {item.excerpt}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

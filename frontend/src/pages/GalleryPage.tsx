@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import PageHero from '../components/ui/PageHero';
-import { GALLERY_IMAGES, type GalleryCategory } from '../constants/gallery';
+import { type GalleryCategory } from '../constants/gallery';
+import { useGallery } from '../hooks/useGallery';
 
 type Filter = 'all' | GalleryCategory;
 
@@ -12,13 +13,14 @@ const FILTERS: { value: Filter; label: string }[] = [
 ];
 
 export default function GalleryPage() {
+  const { images, loading, error } = useGallery();
   const [activeFilter, setActiveFilter] = useState<Filter>('all');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const visible =
     activeFilter === 'all'
-      ? GALLERY_IMAGES
-      : GALLERY_IMAGES.filter((img) => img.category === activeFilter);
+      ? images
+      : images.filter((img) => img.category === activeFilter);
 
   const openLightbox = (i: number) => setLightboxIndex(i);
   const closeLightbox = () => setLightboxIndex(null);
@@ -48,6 +50,30 @@ export default function GalleryPage() {
     return () => { document.body.style.overflow = ''; };
   }, [lightboxIndex]);
 
+  if (error) {
+    return (
+      <>
+        <PageHero
+          eyebrow="Galeria"
+          title="Galeria kliniki"
+          subtitle="Zajrzyj do naszych gabinetów i poznaj bliżej Dentvital."
+          icon="camera"
+          breadcrumbs={[
+            { label: 'Strona główna', href: '/' },
+            { label: 'Galeria' },
+          ]}
+        />
+        <section className="section">
+          <div className="container">
+            <p className="muted" style={{ textAlign: 'center', padding: '48px 0' }}>
+              Nie udało się załadować galerii.
+            </p>
+          </div>
+        </section>
+      </>
+    );
+  }
+
   return (
     <>
       <PageHero
@@ -63,6 +89,11 @@ export default function GalleryPage() {
 
       <section className="section">
         <div className="container">
+          {loading ? (
+            <p className="muted" style={{ textAlign: 'center', padding: '48px 0' }}>
+              Ładowanie galerii…
+            </p>
+          ) : null}
           <div className="gallery-filter">
             {FILTERS.map((f) => (
               <button

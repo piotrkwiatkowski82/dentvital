@@ -19,6 +19,8 @@ services:
   backend:
     build: ./backend
     restart: unless-stopped
+    env_file:
+      - .env   # przekazuje ADMIN_PASSWORD i JWT_SECRET_KEY dosłownie (bez interpolacji $)
     environment:
       DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-dentvital}:${POSTGRES_PASSWORD:-dentvital_dev_pass}@db:5432/${POSTGRES_DB:-dentvital}
       SMTP_HOST: ${SMTP_HOST:-localhost}
@@ -29,6 +31,9 @@ services:
       SMTP_USE_TLS: ${SMTP_USE_TLS:-true}
       CLINIC_EMAIL: ${CLINIC_EMAIL:-recepcja@dentvital.pl}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost,http://localhost:5173}
+      UPLOADS_DIR: /app/uploads
+    volumes:
+      - uploads_data:/app/uploads
     ports:
       - "8000:8000"
     depends_on:
@@ -50,3 +55,4 @@ services:
 
 volumes:
   postgres_data:
+  uploads_data:

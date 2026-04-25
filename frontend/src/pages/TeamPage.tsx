@@ -1,10 +1,11 @@
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import PageHero from '../components/ui/PageHero';
 import BookingSection from '../components/booking/BookingSection';
-import { TEAM_MEMBERS } from '../constants/team';
+import { useTeam } from '../hooks/useTeam';
 
 export default function TeamPage() {
   useScrollReveal();
+  const { members } = useTeam();
 
   return (
     <>
@@ -23,7 +24,7 @@ export default function TeamPage() {
       <section className="section scroll-reveal">
         <div className="container">
           <div className="team-grid">
-            {TEAM_MEMBERS.map((member) => (
+            {members.map((member) => (
               <div className="team-card" key={member.id}>
                 <img
                   className="team-card-img"

@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/layout/Header';
+import AnnouncementBanner from './components/layout/AnnouncementBanner';
 import Footer from './components/layout/Footer';
 import ScrollToTop from './components/layout/ScrollToTop';
 import HomePage from './pages/HomePage';
@@ -33,6 +34,7 @@ export default function App() {
     <>
       <ScrollToTop />
       <a className="skip-link" href="#main">Przejdź do treści</a>
+      <AnnouncementBanner />
       <Header />
       <main id="main">
         <Suspense fallback={<PageLoader />}>
