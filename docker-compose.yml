@@ -53,6 +53,18 @@ services:
     depends_on:
       - backend
 
+  admin:
+    build:
+      context: ./admin
+      args:
+        VITE_API_URL: ${ADMIN_VITE_API_URL:-}
+        VITE_BASE_PATH: /admin/
+    restart: unless-stopped
+    ports:
+      - "8081:80"   # lokalnie: http://localhost:8081/admin/
+    depends_on:
+      - backend
+
 volumes:
   postgres_data:
   uploads_data:

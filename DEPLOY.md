@@ -92,7 +92,9 @@ Traefik po wykryciu kontenera skieruje ruch na domenę z `TRAEFIK_DOMAIN` do fro
 
 - **Dentvital:** `./deploy.sh` (lub powyższa komenda compose).  
 - **Tamta apka:** uruchamiasz jak dotąd, bez zmian.  
-Ruch jest rozdzielany po **domenie** (Host), więc obie mogą stać za tym samym Traefikiem.
+Ruch jest rozdzielany po **domenie** (Host), a panel admina dodatkowo po ścieżce `/admin`.
+
+Panel admina po deployu: `https://${TRAEFIK_DOMAIN}/admin` (np. `https://dentvital.dotfusion.pl/admin`).
 
 ---
 
@@ -102,6 +104,7 @@ Ruch jest rozdzielany po **domenie** (Host), więc obie mogą stać za tym samym
 |----|--------|
 | Jedna komenda | `./deploy.sh` lub `./deploy.sh v1.0.0` |
 | Domena | `TRAEFIK_DOMAIN` w `.env` (domyślnie `dentvital.dotfusion.pl`) |
+| Panel admina | `https://<TRAEFIK_DOMAIN>/admin` |
 | Sieć Traefika | Domyślnie `traefik_public`; albo `TRAEFIK_NETWORK` w `.env` (np. sieć z tamtego projektu) |
 | CORS | `CORS_ORIGINS` w `.env` (https + Twoja domena) |
 | Resolver certyfikatów | `TRAEFIK_CERT_RESOLVER` w `.env` (domyślnie `myresolver`) |

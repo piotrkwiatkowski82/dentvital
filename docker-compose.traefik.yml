@@ -23,6 +23,26 @@ services:
       - default
       - traefik_public
 
+  admin:
+    ports: []
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dentvital-admin-http.rule=Host(`${TRAEFIK_DOMAIN:-dentvital.dotfusion.pl}`) && PathPrefix(`/admin`)"
+      - "traefik.http.routers.dentvital-admin-http.entrypoints=web"
+      - "traefik.http.routers.dentvital-admin-http.service=dentvital-admin"
+      - "traefik.http.routers.dentvital-admin-http.priority=100"
+      - "traefik.http.routers.dentvital-admin-https.rule=Host(`${TRAEFIK_DOMAIN:-dentvital.dotfusion.pl}`) && PathPrefix(`/admin`)"
+      - "traefik.http.routers.dentvital-admin-https.entrypoints=websecure"
+      - "traefik.http.routers.dentvital-admin-https.service=dentvital-admin"
+      - "traefik.http.routers.dentvital-admin-https.priority=100"
+      - "traefik.http.routers.dentvital-admin-https.tls=true"
+      - "traefik.http.routers.dentvital-admin-https.tls.certresolver=${TRAEFIK_CERT_RESOLVER:-myresolver}"
+      - "traefik.http.services.dentvital-admin.loadbalancer.server.port=80"
+      - "traefik.docker.network=${TRAEFIK_NETWORK:-traefik_public}"
+    networks:
+      - default
+      - traefik_public
+
   backend:
     ports: []
     command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
